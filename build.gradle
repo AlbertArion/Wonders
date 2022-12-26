@@ -1,0 +1,36 @@
+// Top-level build file where you can add configuration options common to all sub-projects/modules.
+buildscript {
+    ext {
+        shadow_version = '2.2.1'
+    }
+
+    repositories {
+        if (System.getenv().containsKey("DISABLE_TENCENT_MAVEN_MIRROR")) {
+            google()
+            mavenCentral()
+        } else {
+            maven { url 'https://mirrors.tencent.com/nexus/repository/maven-public/' }
+        }
+
+        maven {
+            name = "shadow"
+            url "https://maven.pkg.github.com/tencent/shadow"
+            //一个只读账号兼容Github Packages暂时不支持匿名下载
+            //https://github.community/t/download-from-github-package-registry-without-authentication/14407
+            credentials {
+                username = 'readonlypat'
+                password = '\u0067hp_s3VOOZnLf1bTyvHWblPfaessrVYyEU4JdNbs'
+            }
+        }
+    }
+}
+
+plugins {
+    id 'com.android.application' version '7.2.1' apply false
+    id 'com.android.library' version '7.2.1' apply false
+    id 'org.jetbrains.kotlin.android' version '1.7.10' apply false
+}
+
+task clean(type: Delete) {
+    delete rootProject.buildDir
+}
