@@ -7,6 +7,10 @@ package com.example.wonders.vip.taste.article
  * on 18-6-15.
  */
 
+infix fun String.concat(a: Any){
+    this.plus(a)
+}
+
 infix fun Any.like(a: Any) {
     print("\nI like $a")
 }

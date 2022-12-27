@@ -17,6 +17,8 @@ fun writeArticle() {
     header()
 
     i like you moreThan anything
+    i concat you
+    i.plus(you)
 
     footer()
 }
