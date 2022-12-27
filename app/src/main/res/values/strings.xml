@@ -6,8 +6,12 @@
     <string name="second_fragment_label">Second Fragment</string>
     <string name="next">Next</string>
     <string name="previous">Previous</string>
+    <string name="vip">VIP</string>
 
     <string name="hello_first_fragment">Hello first fragment</string>
     <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
     <string name="floatingActionButton">FloatingActionButton</string>
+    <string name="plan">计划排序:</string>
+    <string name="dest">请选择目的地:</string>
+    <string name="content_area">Content Area</string>
 </resources>

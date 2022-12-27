@@ -1,4 +1,4 @@
-package com.example.wonders.vip.vipkotlin
+package com.example.wonders.vip
 
 import android.os.Bundle
 import android.view.View

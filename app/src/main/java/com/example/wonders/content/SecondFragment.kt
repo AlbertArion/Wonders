@@ -23,7 +23,7 @@ class SecondFragment : Fragment() {
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
 
         _binding = FragmentSecondBinding.inflate(inflater, container, false)
         return binding.root
@@ -35,6 +35,7 @@ class SecondFragment : Fragment() {
 
         binding.buttonSecond.setOnClickListener {
             findNavController().navigate(R.id.action_SecondFragment_to_FirstFragment)
+//            startActivity(Intent("com.example.wonders.VIP"));
         }
     }
 

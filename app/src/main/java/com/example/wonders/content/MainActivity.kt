@@ -3,8 +3,10 @@ package com.example.wonders.content
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import androidx.navigation.findNavController
 import androidx.navigation.ui.AppBarConfiguration
 import androidx.navigation.ui.navigateUp
@@ -13,17 +15,47 @@ import com.example.wonders.R
 import com.example.wonders.application.App
 import com.example.wonders.databinding.ActivityMainBinding
 import com.google.android.material.snackbar.Snackbar
+import kotlinx.coroutines.*
+import java.util.*
 
 class MainActivity : AppCompatActivity() {
-
+    val context by lazy { this }
     private lateinit var appBarConfiguration: AppBarConfiguration
     private val trickyNumber: Int by lazy { 1 }
     private lateinit var binding: ActivityMainBinding
     private lateinit var viewModel: MainActivityViewModel
 
-    class MainActivityViewModel : ViewModel(){
+    class MainActivityViewModel : ViewModel() {
         var text: String = "MainActivity";
-        var floatingActionButtonContentDescription: String? = App.getContext()?.getString(R.string.floatingActionButton)
+        var floatingActionButtonContentDescription: String? =
+            App.getContext()?.getString(R.string.floatingActionButton)
+
+        class JobCanceller(val job: Job) : TimerTask() {
+            override fun run() {
+                job.cancel(CancellationException("Job timeout", Throwable()))
+            }
+
+        }
+
+        fun startCouRoutine() {
+            val job = viewModelScope.launch(Dispatchers.Main) {
+                withContext(Dispatchers.IO) {
+                    val response = doSomeIO()
+                    Toast.makeText(App.getContext(), response, Toast.LENGTH_SHORT).show()
+                    println("Response = $response")
+                }
+            }
+            Timer().schedule(JobCanceller(job), 1000)
+        }
+
+        private fun doSomeIO(): String {
+            var response = ""
+            for (i in 0..100000) {
+                println("io ing: i = $i")
+            }
+            response = "response";
+            return response
+        }
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
